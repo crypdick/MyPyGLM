@@ -13,9 +13,11 @@ Created on Wed Feb 11 19:45:33 2015
 import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
-NUMBER_EXPERIMENTS = 20
-DIMENSIONS = 2
+
+NUMBER_EXPERIMENTS = 10000
+DIMENSIONS = 3
 
 def Gaussian_generator(mean=0,stdev=1.0, dimensions = DIMENSIONS):
     return numpy.random.normal(loc=mean, scale=stdev, size = dimensions)
@@ -27,11 +29,13 @@ for i in range(NUMBER_EXPERIMENTS):
     newpt = np.array([Gaussian_generator()])
     gaussianList = np.concatenate((gaussianList, newpt), axis=0)
 
-print gaussianList
 
-#print gaussianList
 
-#num_bins = 50
-# the histogram of the data
-#n, bins, patches = plt.hist(x, num_bins, normed=1, facecolor='green', alpha=0.5)
-#plt.show()
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+xs = gaussianList[:,0]
+ys = gaussianList[:,1]
+zs = gaussianList[:,2]
+
+ax.scatter(xs, ys, zs)
+plt.show()
