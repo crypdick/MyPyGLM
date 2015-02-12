@@ -9,22 +9,25 @@ Created on Wed Feb 11 19:45:33 2015
 @author: Richard Decal, decal@uw.edu
 """
 
-numberlist = []
-
-for i in range(100):
-    numberlist.append( numpy.random.normal(loc=0, scale=1.0, size = None) )
     
 import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 
+NUMBER_EXPERIMENTS = 15
+DIMENSIONS = 3
 
-# example data
-mu = 0 # mean of distribution
-sigma = 10 # standard deviation of distribution
-x = mu + sigma * np.random.randn(10000)
+def Gaussian_generator(mean=0,stdev=1.0, dimensions = DIMENSIONS):
+    return numpy.random.normal(loc=mean, scale=stdev, size = dimensions)
 
-num_bins = 50
+gaussianList = []
+
+for i in range(NUMBER_EXPERIMENTS):
+    gaussianList = np.concatenate((gaussianList, Gaussian_generator()), axis=0)
+
+print gaussianList
+
+#num_bins = 50
 # the histogram of the data
-n, bins, patches = plt.hist(x, num_bins, normed=1, facecolor='green', alpha=0.5)
-plt.show()
+#n, bins, patches = plt.hist(x, num_bins, normed=1, facecolor='green', alpha=0.5)
+#plt.show()
