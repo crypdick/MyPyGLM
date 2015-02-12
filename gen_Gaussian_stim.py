@@ -14,18 +14,22 @@ import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 
-NUMBER_EXPERIMENTS = 15
-DIMENSIONS = 3
+NUMBER_EXPERIMENTS = 20
+DIMENSIONS = 2
 
 def Gaussian_generator(mean=0,stdev=1.0, dimensions = DIMENSIONS):
     return numpy.random.normal(loc=mean, scale=stdev, size = dimensions)
 
-gaussianList = []
+gaussianList = np.array([numpy.zeros(DIMENSIONS)])
+
 
 for i in range(NUMBER_EXPERIMENTS):
-    gaussianList = np.concatenate((gaussianList, Gaussian_generator()), axis=0)
+    newpt = np.array([Gaussian_generator()])
+    gaussianList = np.concatenate((gaussianList, newpt), axis=0)
 
 print gaussianList
+
+#print gaussianList
 
 #num_bins = 50
 # the histogram of the data
