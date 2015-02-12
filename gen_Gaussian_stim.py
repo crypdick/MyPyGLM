@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-NUMBER_EXPERIMENTS = 10000
-DIMENSIONS = 3
+NUMBER_EXPERIMENTS = 1
+DIMENSIONS = 3000
 
 def Gaussian_generator(mean=0,stdev=1.0, dimensions = DIMENSIONS):
     return numpy.random.normal(loc=mean, scale=stdev, size = dimensions)
@@ -45,5 +45,5 @@ for i in range(NUMBER_EXPERIMENTS):
 
 #==============================================================================
 ####### store the numpy array
-# np.savetxt("gauss_stimulus_3dim.txt", gaussianList)
+#np.savetxt("gauss_stimulus_3000dim.txt", gaussianList[1:,:])
 #==============================================================================
