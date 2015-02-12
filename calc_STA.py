@@ -14,10 +14,11 @@ Created on Wed Feb 11 21:20:00 2015
 @author: Richard Decal, decal@uw.edu
 """
 import numpy as np
+import matplotlib.pyplot as plt
 
 stimulus = np.genfromtxt("gauss_stimulus_3000dim.txt")
 STIM_LEN = len(stimulus)
-WINDOW_LEN = 5
+WINDOW_LEN = 50
 
 def gen_rand_spiketimes(number_of_spikes):
     """given stimulus, generate 10 random spikes"""
@@ -29,16 +30,18 @@ def gen_rand_spiketimes(number_of_spikes):
         timebins.append(timebin)
     return rand_spike_times, timebins
         
-spikes, times = gen_rand_spiketimes(5)
+spikes, times = gen_rand_spiketimes(1000)
 
 def window_grabber():
     spike_triggers = []
     for time in times:
         if time > WINDOW_LEN:
             spike_triggers.append(stimulus[time-WINDOW_LEN:time])
-        else:
-            spike_triggers.append(stimulus[0:time])
     return spike_triggers
     
 spike_triggers = window_grabber()
 spike_trigger_average = np.average(spike_triggers, axis=0)
+
+#plot the 
+plt.plot(range(0,WINDOW_LEN), spike_trigger_average)
+plt.show()
