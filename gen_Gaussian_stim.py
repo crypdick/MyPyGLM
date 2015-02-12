@@ -31,11 +31,19 @@ for i in range(NUMBER_EXPERIMENTS):
 
 
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-xs = gaussianList[:,0]
-ys = gaussianList[:,1]
-zs = gaussianList[:,2]
+#==============================================================================
+#plot the gaussian cloud
+#fig = plt.figure()
+#ax = fig.add_subplot(111, projection='3d')
+#xs = gaussianList[:,0]
+#ys = gaussianList[:,1]
+#zs = gaussianList[:,2]
+#ax.scatter(xs, ys, zs)
+#plt.show()
+#==============================================================================
 
-ax.scatter(xs, ys, zs)
-plt.show()
+
+#==============================================================================
+####### store the numpy array
+# np.savetxt("gauss_stimulus_3dim.txt", gaussianList)
+#==============================================================================
