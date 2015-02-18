@@ -31,11 +31,13 @@ def gen_rand_spiketimes(number_of_spikes, STIM_LEN):
 def window_grabber(stimulus, times, WINDOW_LEN):
     """"when we have a spike, grab the window
     
+    return an array of each window
     TODO: instead of discarding spikes at beginning, make vector with leading zeros??"""
     spike_trigger_windows = []
     for time in times:
         if time > WINDOW_LEN: #discard spikes that are too close to the beginning.
             spike_trigger_windows.append(stimulus[time-WINDOW_LEN:time])
+    spike_trigger_windows = np.array(spike_trigger_windows)
     return spike_trigger_windows
 
 def spike_trigger_averager(spike_trigger_windows):
@@ -54,8 +56,10 @@ def main(stimulus = np.genfromtxt("gauss_stimulus_3000dim.txt"), WINDOW_LEN = 50
     spikes, times = gen_rand_spiketimes(1000, STIM_LEN)
     spike_trigger_windows = window_grabber(stimulus, times, WINDOW_LEN)
     spike_trigger_average = spike_trigger_averager(spike_trigger_windows)
-    figplotter(WINDOW_LEN, spike_trigger_average)
+    spike_trigger_windows
+    return spike_trigger_average, WINDOW_LEN
     
 
 if __name__ == "__main__":
-    main()
+    spike_trigger_average, WINDOW_LEN  = main()
+    figplotter(WINDOW_LEN, spike_trigger_average)
