@@ -11,33 +11,34 @@ Created on Wed Feb 11 19:45:33 2015
 
     
 import numpy as np
-import matplotlib.mlab as mlab
+#import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+#from mpl_toolkits.mplot3d import Axes3D
 
 
 NUMBER_EXPERIMENTS = 1
 DIMENSIONS = 3000
 
 def Gaussian_generator(mean=0,stdev=1.0, dimensions = DIMENSIONS):
-    return numpy.random.normal(loc=mean, scale=stdev, size = dimensions)
+    return np.random.normal(loc=mean, scale=stdev, size = dimensions)
 
-gaussianList = np.array([numpy.zeros(DIMENSIONS)])
+#initialize list with a row of zeros
+gaussianList = np.array([np.zeros(DIMENSIONS)])
 
 
 for i in range(NUMBER_EXPERIMENTS):
+    """make a new row of length DIMENSIONS for each experiment"""
     newpt = np.array([Gaussian_generator()])
     gaussianList = np.concatenate((gaussianList, newpt), axis=0)
 
-
-
 #==============================================================================
 #plot the gaussian cloud
+#the [1:, skips the first row of the data, which is just a hack to skip all the zeros
 #fig = plt.figure()
 #ax = fig.add_subplot(111, projection='3d')
-#xs = gaussianList[:,0]
-#ys = gaussianList[:,1]
-#zs = gaussianList[:,2]
+#xs = gaussianList[1:,0]
+#ys = gaussianList[1:,1]
+#zs = gaussianList[1:,2]
 #ax.scatter(xs, ys, zs)
 #plt.show()
 #==============================================================================
