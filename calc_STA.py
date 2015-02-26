@@ -7,8 +7,10 @@ stimulus (t)
 spike spikeTimes (t)
     if no spiketimes, generate randoms
 
+Given stim and spiketimes, grabs the spike windows, and calcs the spike triggered average.
+
 output:
-averaged stimulus before the spiketime
+spike triggered average
 
 
 Created on Wed Feb 11 21:20:00 2015
@@ -22,7 +24,8 @@ def gen_rand_spiketimes(number_of_spikes, STIM_LEN):
     """given stimulus length and stim count, generate 10 random spikes
     
     TODO: make this a poisson process
-    TODO: don't have random spiketimes: spike when convolution tells you to!"""
+    TODO: don't have random spiketimes: spike when convolution tells you to!
+    """
     rand_spike_times = np.zeros(STIM_LEN)
     timebins = []
     for i in range(number_of_spikes):
@@ -32,10 +35,10 @@ def gen_rand_spiketimes(number_of_spikes, STIM_LEN):
     return rand_spike_times, timebins
 
 def window_grabber(stimulus, spikeTimes, WINDOW_LEN):
-    """"when we have a spike, grab the window
+    """"when a spike happens, grab the window preceding the spike. return an nparray containing each window
     
-    return an array of each window
-    TODO: instead of discarding spikes at beginning, make vector with leading zeros??"""
+    TODO: instead of discarding spikes at beginning, make vector with leading zeros??
+    """
     spike_trigger_windows = []
     for time in spikeTimes:
         if time > WINDOW_LEN: #discard spikes that are too close to the beginning.
@@ -44,7 +47,9 @@ def window_grabber(stimulus, spikeTimes, WINDOW_LEN):
     return spike_trigger_windows
 
 def spike_trigger_averager(spike_trigger_windows):
-    """given a list of TODO, return a single averaged vector"""    
+    """given an array of many grabbed windows, average all the windows.
+    return a Spike-triggered average window/vector
+    """    
     spike_trigger_average = np.average(spike_trigger_windows, axis=0)
     return spike_trigger_average
 
@@ -56,12 +61,12 @@ def main(stimulus = np.genfromtxt("gauss_stimulus_3000dim.txt"), WINDOW_LEN = 50
     """"
     default imports vector of len(3000) of pts drawn from a gaussian dist w/ mean=0,stdev=1.0
     
-    TODO: allow input of spikes and spikeTimes, generate if none are available"""
+    TODO: allow input of spikes and spikeTimes, generate if none are available
+    """
     STIM_LEN = len(stimulus)
-    spikes, spikeTimes = gen_rand_spiketimes(1000, STIM_LEN) #TODO: replace with calculated spiketimes
+    spike_timeseries, spikeTimes = gen_rand_spiketimes(1000, STIM_LEN) #TODO: replace with calculated spiketimes  
     spike_trigger_windows = window_grabber(stimulus, spikeTimes, WINDOW_LEN)
     spike_trigger_average = spike_trigger_averager(spike_trigger_windows)
-    spike_trigger_windows
     return spike_trigger_average, WINDOW_LEN
     
 
